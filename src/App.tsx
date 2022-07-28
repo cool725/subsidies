@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import AppContainer from "./components/layout/AppContainer";
 import Home from "./components/Home";
+import NotFound from "./components/NotFound";
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,8 @@ function App() {
           <Route path="/" element={<AppContainer />}>
             <Route path="home" element={<Home />} />
           </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
