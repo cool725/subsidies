@@ -171,6 +171,7 @@ const SideBar = () => {
           borderRight: 0,
           transition: "0.3s",
           marginLeft: !isOpen ? "-323px" : 0,
+          background: "#FAFAFA",
         }}
       >
         <Box sx={{ padding: "30px 0 40px 24px" }}>
@@ -192,11 +193,11 @@ const SideBar = () => {
             minWidth: 9,
             height: "100%",
             padding: "4px",
-            background: "#fff",
             borderRadius: 0,
             border: "1px solid #B4B4B4",
             borderTop: 0,
             borderBottom: 0,
+            background: "#FAFAFA",
             ...(!isOpen && {
               "& svg": {
                 transform: "rotate(180deg)",
