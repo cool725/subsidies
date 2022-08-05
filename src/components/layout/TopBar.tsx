@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
-  IconButton,
   Avatar,
   Menu,
   MenuItem,
@@ -12,7 +11,10 @@ import {
 import { makeStyles } from "@mui/styles";
 import Logout from "@mui/icons-material/Logout";
 
-import { Help } from "../../assets/svg/index.js";
+import { Help } from "../../assets/svg";
+
+import { useAppSelector, useAppDispatch } from "../../services/hook";
+import { logout } from "../auth/authSlice";
 
 const useStyles = makeStyles({
   headerWrapper: {
@@ -21,6 +23,7 @@ const useStyles = makeStyles({
     justifyContent: "end",
     alignItems: "center",
     borderBottom: "1px solid #B4B4B4",
+    background: "#fff",
     paddingRight: 100,
     "& .MuiButton-root": {
       padding: 10,
@@ -40,6 +43,8 @@ const useStyles = makeStyles({
 });
 
 const TopBar = () => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -66,7 +71,7 @@ const TopBar = () => {
           aria-expanded={open ? "true" : undefined}
         >
           <Typography className={classes.username} variant="body1">
-            Jan Kowalski
+            {user?.firstname} {user?.surname}
           </Typography>
           <Avatar sx={{ width: 32, height: 32 }} />
         </Button>
@@ -110,7 +115,7 @@ const TopBar = () => {
         <MenuItem>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => dispatch(logout())}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

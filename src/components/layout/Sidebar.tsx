@@ -41,6 +41,10 @@ const useStyles = makeStyles({
       padding: 6,
       borderRadius: 3,
       background: "rgba(180, 23, 48, 0.1)",
+
+      "& path": {
+        fill: "#B41730"
+      }
     },
     "& .MuiListItem-root::before": {
       content: '""',

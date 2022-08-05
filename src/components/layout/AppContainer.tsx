@@ -1,4 +1,5 @@
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { Box } from "@mui/material";
 
@@ -6,6 +7,13 @@ import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
 
 function AppContainer() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/home");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Box style={{ display: "flex", height: "100vh" }}>
       <Sidebar />
@@ -23,7 +31,6 @@ function AppContainer() {
         <Box
           style={{
             flexGrow: 1,
-            background: "#EEEEEE",
             padding: "22px 35px 24px 40px",
           }}
         >
