@@ -61,6 +61,10 @@ export const authSlice = createSlice({
       }
     });
 
+    builder.addCase(login.rejected, (state) => {
+      state.isLogining = false;
+    })
+
     builder.addCase(loginWithToken.fulfilled, (state, action) => {
       if (!action.payload) return;
 

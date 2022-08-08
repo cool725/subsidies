@@ -25,10 +25,17 @@ import { useAppSelector, useAppDispatch } from "../../services/hook";
 
 import { login } from "./authSlice";
 
+import { default as Validator } from "validatorjs";
+
 interface IData {
   email: string;
   password: string;
   remember: boolean;
+}
+
+interface Item {
+  title: string;
+  href: string;
 }
 
 const useStyles = makeStyles({
@@ -78,11 +85,6 @@ const useStyles = makeStyles({
   },
 });
 
-interface Item {
-  title: string;
-  href: string;
-}
-
 const items = [
   {
     title: "Polityka Prywatności",
@@ -106,13 +108,21 @@ const Login = () => {
   const isLogining = useAppSelector((state) => state.auth.isLogining);
   const dispatch = useAppDispatch();
 
-  const classes = useStyles();
-  const [data, setData] = useState<IData>({
+  const initialData = {
     email: "",
     password: "",
     remember: false,
-  });
+  };
+
+  let rules = {
+    email: "required|email",
+    password: "required",
+  };
+
+  const classes = useStyles();
+  const [data, setData] = useState<IData>(initialData);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Validator.Errors | null>(null);
 
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -129,7 +139,22 @@ const Login = () => {
     };
 
   const handleSubmit = () => {
+    let validation = new Validator(data, rules);
+    if (validation.fails()) {
+      setErrors(validation.errors);
+      return;
+    }
+
     dispatch(login(data));
+    setErrors(null);
+  };
+
+  const handlePressEnterKey = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (
@@ -153,9 +178,13 @@ const Login = () => {
               fullWidth
               id="email"
               variant="outlined"
+              error={!!errors?.first("email")}
+              helperText={errors?.first("email")}
               placeholder="Wpisz swój login"
               className={classes.input}
+              value={data.email}
               onChange={handleChange("email")}
+              onKeyDown={handlePressEnterKey}
             />
           </Box>
           <Box mb={3}>
@@ -163,9 +192,11 @@ const Login = () => {
             <OutlinedInput
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}
+              error={!!errors?.first("password")}
               value={data.password}
               onChange={handleChange("password")}
               className={classes.input}
+              onKeyDown={handlePressEnterKey}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton

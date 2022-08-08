@@ -2,11 +2,15 @@ import axios from "axios";
 
 import Storage from "./storage";
 
-axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'https://sum.nfinity.pl/api' : 'http://localhost:8002';
+import { toast } from "react-toastify";
+
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://sum.nfinity.pl/api"
+    : "http://localhost:8002";
 
 axios.interceptors.request.use(
   (request: any) => {
-    console.log(request);
     const token = Storage.get("access_token");
 
     if (token) {
@@ -31,8 +35,10 @@ axios.interceptors.response.use(
   (error) => {
     console.log(error);
     if (error?.response.status === 401) {
-      Storage.remove('access_token');
+      Storage.remove("access_token");
     }
+
+    toast.error(error?.response.data?.message);
 
     return Promise.reject(error);
   }

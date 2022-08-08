@@ -9,14 +9,19 @@ import "./services/axios";
 import { Provider } from "react-redux";
 import store from "./services/store";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   // <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+  <Provider store={store}>
+    <App />
+
+    <ToastContainer position="top-center" />
+  </Provider>
   // </React.StrictMode>
 );
 
