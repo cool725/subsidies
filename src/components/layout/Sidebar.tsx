@@ -43,8 +43,8 @@ const useStyles = makeStyles({
       background: "rgba(180, 23, 48, 0.1)",
 
       "& path": {
-        fill: "#B41730"
-      }
+        fill: "#B41730",
+      },
     },
     "& .MuiListItem-root::before": {
       content: '""',
@@ -59,6 +59,19 @@ const useStyles = makeStyles({
     },
   },
 });
+
+interface IChild {
+  title: string;
+  href: string;
+  icon?: React.ReactNode;
+}
+
+interface INav {
+  title: string;
+  href?: string;
+  icon?: React.ReactNode;
+  children?: IChild[];
+}
 
 const SideBar = () => {
   const classes = useStyles();
@@ -126,8 +139,8 @@ const SideBar = () => {
     },
   ];
 
-  const renderSideBar = (items: any) => {
-    return items.map((item: any, index: number) => {
+  const renderSideBar = (items: INav[]) => {
+    return items.map((item: INav, index: number) => {
       return item.children ? (
         <React.Fragment key={index}>
           <Typography variant="body1" className={classes.subtitle}>
@@ -139,7 +152,7 @@ const SideBar = () => {
       ) : (
         <NavLink
           key={index}
-          to={item.href}
+          to={item?.href || ""}
           className={({ isActive }) =>
             isActive ? classes.activeClassName : classes.navLink
           }
