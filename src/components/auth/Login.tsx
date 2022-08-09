@@ -114,7 +114,7 @@ const Login = () => {
     remember: false,
   };
 
-  let rules = {
+  const rules = {
     email: "required|email",
     password: "required",
   };
@@ -210,6 +210,14 @@ const Login = () => {
                 </InputAdornment>
               }
             />
+            {!!errors?.first("password") && (
+              <Typography
+                variant="body1"
+                className="MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+              >
+                {errors?.first("password")}
+              </Typography>
+            )}
           </Box>
 
           <Box mb={5}>
