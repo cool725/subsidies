@@ -7,6 +7,7 @@ import {
   MenuItem,
   ListItemIcon,
   Typography,
+  Theme,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Logout from "@mui/icons-material/Logout";
@@ -16,14 +17,14 @@ import { Help } from "../../assets/svg";
 import { useAppSelector, useAppDispatch } from "../../services/hook";
 import { logout } from "../auth/authSlice";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   headerWrapper: {
     height: 85,
     display: "flex",
     justifyContent: "end",
     alignItems: "center",
     borderBottom: "1px solid #B4B4B4",
-    background: "#fff",
+    background: theme.palette.common.white,
     paddingRight: 100,
     "& .MuiButton-root": {
       padding: 10,
@@ -31,16 +32,16 @@ const useStyles = makeStyles({
   },
   help: {
     padding: "15px !important",
-    color: "#002852 !important",
+    color: `${theme.palette.primary.main} !important`,
     fontWeight: "700 !important",
     fontSize: "13px !important",
   },
   username: {
     fontSize: "16px !important",
-    color: "#25272B !important",
+    color: `${theme.palette.text} !important`,
     marginRight: "15px !important",
   },
-});
+}));
 
 const TopBar = () => {
   const dispatch = useAppDispatch();

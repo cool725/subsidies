@@ -15,9 +15,11 @@ import {
   Stack,
   LinearProgress,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+import { makeStyles, useTheme } from "@mui/styles";
+import { Theme } from "@mui/material";
 
 import { Logo } from "../../assets/svg";
 
@@ -38,7 +40,7 @@ interface Item {
   href: string;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   loginWrapper: {
     minHeight: "100vh",
     display: "flex",
@@ -70,7 +72,7 @@ const useStyles = makeStyles({
     },
   },
   policy: {
-    color: "#002852",
+    color: theme.palette.primary.main,
     textDecoration: "none",
     fontFamily: "Open Sans",
     fontWeight: 600,
@@ -83,7 +85,7 @@ const useStyles = makeStyles({
     position: "absolute !important" as any,
     top: 0,
   },
-});
+}));
 
 const items = [
   {
@@ -107,6 +109,7 @@ const items = [
 const Login = () => {
   const isLogining = useAppSelector((state) => state.auth.isLogining);
   const dispatch = useAppDispatch();
+  const theme = useTheme<Theme>();
 
   const initialData = {
     email: "",
@@ -225,6 +228,7 @@ const Login = () => {
               label="Zapamiętaj mnie"
               control={
                 <Checkbox
+                  color="secondary"
                   checked={data.remember}
                   onChange={handleChange("remember")}
                 />
@@ -240,7 +244,6 @@ const Login = () => {
                 disabled={isLogining}
                 sx={{
                   "&.MuiButton-root": {
-                    backgroundColor: "#002852",
                     width: 192,
                     height: 44,
                   },
@@ -253,7 +256,7 @@ const Login = () => {
               <NavLink
                 to="/forgot-password"
                 style={{
-                  color: "#B41730",
+                  color: theme.palette.secondary.main,
                   textDecoration: "none",
                   fontFamily: "Open Sans",
                   fontWeight: 600,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 import AppContainer from "./components/layout/AppContainer";
 import Home from "./components/Home";
@@ -13,14 +13,7 @@ import Storage from "./services/storage";
 import { useAppSelector, useAppDispatch } from "./services/hook";
 import { loginWithToken } from "./components/auth/authSlice";
 
-const theme = createTheme({
-  palette: {
-    secondary: {
-      // This is green.A700 as hex.
-      main: "#B41730",
-    },
-  },
-});
+import theme from "./theme";
 
 function App() {
   const dispatch = useAppDispatch();

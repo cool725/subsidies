@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { makeStyles } from "@mui/styles";
-import { useTheme } from "@mui/material/styles";
+import { makeStyles, useTheme } from "@mui/styles";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {
+  Theme,
   Box,
   Button,
   Typography,
@@ -16,9 +17,9 @@ import {
 
 import { Logo, Home, LeftArrow, News } from "../../assets/svg/index.js";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   subtitle: {
-    color: "#002852",
+    color: theme.palette.primary.main,
     fontSize: "12px !important",
     padding: "12px !important",
     paddingLeft: "24px !important",
@@ -29,21 +30,21 @@ const useStyles = makeStyles({
   },
   navLink: {
     textDecoration: "none",
-    color: "#002852",
+    color: theme.palette.primary.main,
     "& svg": {
       padding: 6,
     },
   },
   activeClassName: {
     textDecoration: "none",
-    color: "#B41730",
+    color: theme.palette.secondary.main,
     "& svg": {
       padding: 6,
       borderRadius: 3,
       background: "rgba(180, 23, 48, 0.1)",
 
       "& path": {
-        fill: "#B41730",
+        fill: theme.palette.secondary.main,
       },
     },
     "& .MuiListItem-root::before": {
@@ -54,11 +55,11 @@ const useStyles = makeStyles({
       width: 3,
       height: 25,
       transform: "translate(0, -50%)",
-      background: "#B41730",
+      background: theme.palette.secondary.main,
       borderRadius: "0px 5px 5px 0px",
     },
   },
-});
+}));
 
 interface IChild {
   title: string;
@@ -75,7 +76,7 @@ interface INav {
 
 const SideBar = () => {
   const classes = useStyles();
-  const theme = useTheme();
+  const theme = useTheme<Theme>();
 
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const isDesktop = useMediaQuery(theme.breakpoints.up("lg"));
