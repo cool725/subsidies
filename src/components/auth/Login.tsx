@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
+  Theme,
   Box,
   Paper,
   Typography,
@@ -15,11 +16,10 @@ import {
   Stack,
   LinearProgress,
 } from "@mui/material";
+import { makeStyles, useTheme } from "@mui/styles";
+
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
-import { makeStyles, useTheme } from "@mui/styles";
-import { Theme } from "@mui/material";
 
 import { Logo } from "../../assets/svg";
 
