@@ -1,13 +1,11 @@
 import axios from "axios";
 
 import Storage from "./storage";
+import { API_URL } from "./config";
 
 import { toast } from "react-toastify";
 
-axios.defaults.baseURL =
-  process.env.NODE_ENV === "production"
-    ? "https://sum.nfinity.pl/api"
-    : "http://localhost:8002";
+axios.defaults.baseURL = API_URL;
 
 axios.interceptors.request.use(
   (request: any) => {
